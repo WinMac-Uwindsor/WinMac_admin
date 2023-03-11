@@ -10,6 +10,7 @@ const Post = require("../models/eventList.model");
 
   exports.addEvent = async (req, res, next) => {
     const { title, date, limit, time, location, Presenter, Desc } = req.body;
+    console.log(req.body);
     try {
 
       const highestEvent = await Post.findOne({}, { event_id: 1 }).sort({ event_id: -1 });
