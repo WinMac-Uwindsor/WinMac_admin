@@ -13,6 +13,7 @@ const Ticket = require("../models/complaint.model");
         length: event_list.length,
         data: event_list,
       });
+      console.log(data);
     } catch (error) {
       res.status(400).json({
         message: "Something went wrong!",
@@ -24,6 +25,7 @@ const Ticket = require("../models/complaint.model");
   //Deleting events
 exports.deleteTicket = async (req, res, next) => {
   const { event_id } = req.body;
+  console.log(req.body);
   try {
     const deletedTicket = await Ticket.findByIdAndDelete(req.body.event_id );
     if (!deletedTicket) {

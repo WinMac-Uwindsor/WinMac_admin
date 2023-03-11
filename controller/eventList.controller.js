@@ -10,6 +10,7 @@ const Post = require("../models/eventList.model");
 
   exports.addEvent = async (req, res, next) => {
     const { title, date, limit, time, location, Presenter, Desc } = req.body;
+    console.log(req.body);
     try {
 
       const highestEvent = await Post.findOne({}, { event_id: 1 }).sort({ event_id: -1 });
@@ -58,6 +59,7 @@ const Post = require("../models/eventList.model");
         length: event_list.length,
         data: event_list,
       });
+      console.log(data);
     } catch (error) {
       res.status(400).json({
         message: "Something went wrong!",
@@ -70,6 +72,7 @@ const Post = require("../models/eventList.model");
 // Update the document with the specified event_id
 exports.updateEvent = async (req, res, next) => {
   const { title, event_id, date, limit, time, location, Presenter, Desc } = req.body;
+  console.log(req.body);
   try {
     const filter = { event_id: event_id };
     const update = {
@@ -103,6 +106,7 @@ exports.updateEvent = async (req, res, next) => {
 //Deleting events
 exports.deleteEvent = async (req, res, next) => {
   const { event_id } = req.body;
+  console.log(req.body);
   try {
     const deletedEvent = await Post.findOneAndDelete({event_id: event_id });
     if (!deletedEvent) {
