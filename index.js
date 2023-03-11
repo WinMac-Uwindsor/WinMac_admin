@@ -35,8 +35,8 @@ app.use('/winmac/support', techSupportRoutes);
 
 mongoose.set("strictQuery", false);
 mongoose.connect(
-    "mongodb://0.0.0.0:27017/",
-    //"mongodb+srv://spyman2748:aman2748@signin.o5zdp16.mongodb.net/?retryWrites=true&w=majority",
+    //"mongodb://0.0.0.0:27017/",
+    "mongodb+srv://spyman2748:aman2748@signin.o5zdp16.mongodb.net/?retryWrites=true&w=majority",
     {
       dbName: "WinHub",
       useNewUrlParser: true,

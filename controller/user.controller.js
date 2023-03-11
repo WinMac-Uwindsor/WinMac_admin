@@ -4,6 +4,7 @@ const validation = require("../middleware/validator");
  //All Events
  exports.getAllData = async (req, res, next) => {
   const { intake } = req.body;
+  console.log(req.body);
   try {
     const users = await Data.find({ intake: intake });
     if(users!=null){
