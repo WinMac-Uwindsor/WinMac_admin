@@ -14,8 +14,13 @@ const Post = require("../models/eventList.model");
     try {
 
       const highestEvent = await Post.findOne({}, { event_id: 1 }).sort({ event_id: -1 });
-
-      var num = parseInt(highestEvent.event_id, 10);
+      var num; 
+      if(!highestEvent){
+        num= 0;
+      }
+      else{
+        num = parseInt(highestEvent.event_id, 10);
+      }
 
       var e_id = num ? num + 1 : 1;
       const event_id= e_id.toString();

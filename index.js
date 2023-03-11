@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const eventListRoutes = require('./routes/eventList.routes');
 const techSupportRoutes = require('./routes/techSupport.routes');
@@ -20,10 +21,18 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+// Allow cross-origin resource sharing
+app.use(cors());
 
 app.get('/', (req,res,next) => {
   res.send(`<h1>WinMac Server </h1>`)  
 })
+
+const corsOptions = {
+  origin: 'http://localhost:3000'
+};
+app.use(cors(corsOptions));
+
 
 
 // localhost:8080/winmac/auth/
