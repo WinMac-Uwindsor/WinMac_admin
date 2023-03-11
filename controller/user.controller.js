@@ -1,12 +1,11 @@
-const Data = require("../models/user.model");
-const validation = require("../middleware/validator");
+const User = require("../models/user.model");
  
  //All Events
  exports.getAllData = async (req, res, next) => {
   const { intake } = req.body;
   console.log(req.body);
   try {
-    const users = await Data.find({ intake: intake });
+    const users = await User.find({ intake: intake });
     if(users!=null){
       const userData = users.map(user => {
         return {
@@ -36,34 +35,31 @@ exports.registerUser = async (req, res, next) => {
   const { username, email, password, name, intake } = req.body;
   console.log(req.body);
   try {
-    const validationErrors = validation.validationResult(req);
     const errors = [];
-    if (!validationErrors.isEmpty) {
-      validationErrors.errors.forEach((error) => {
-        console.log("setting error");
-        errors.push(error.param);
-      });
-    } else {
-      const existingEmail = await Data.findOne({ email: req.body.email });
-      const existingUsername = await Data.findOne({ username: req.body.username });
+    const existingEmail = await User.findOne({ email: req.body.email });
+    const existingUsername = await User.findOne({ username: req.body.username });
 
-      if (existingEmail || existingUsername) {
-        console.log("setting error 2");
-        errors.push({ message: "Email or username already exist." });
-      }
+    if (existingEmail || existingUsername) {
+      console.log("setting error 2");
+      errors.push({ message: "Email or username already exist." });
     }
     if (errors.length) {
       return res.status(400).json({
         error: errors,
       });
     }
-    const obj = JSON.stringify(req.body);
-    const userSaved = await Data.create({
-      "username": obj.username,
-      "email": obj.email,
-      "password": obj.password,
-      "name": obj.name,
-      "intake": obj.intake,
+    const uname = JSON.stringify(req.body.username);
+    const em = JSON.stringify(req.body.email);
+    const pass = JSON.stringify(req.body.password);
+    const nam = JSON.stringify(req.body.name);
+    const U_i = JSON.stringify(req.body.intake);
+    //console.log(typeof(uname));
+    const userSaved = await User.create({
+      "username": uname,
+      "email": em,
+      "password": pass,
+      "name": nam,
+      "intake": U_i,
     });    
     res.status(201).json({
       message: "User created!",
